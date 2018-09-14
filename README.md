@@ -20,22 +20,12 @@ This analysis application leverages the following database views to more easily 
 
 CREATE VIEW QUERY:
 ```
-SELECT path, count(log.id) as ArticleViews
-FROM log INNER JOIN articles on replace(path, ‘/article/‘,’’) = articles
-GROUP BY log.path
-HAVING log.path like ‘/article/%’
-ORDER BY Count(log.id) DESC
-LIMIT 3
+CREATE VIEW vw1 as SELECT .....
 ```
 
 ### _View 2_
 
 QUERY:
 ```
-SELECT path, count(log.id) as ArticleViews
-FROM log INNER JOIN articles on replace(path, ‘/article/‘,’’) = articles
-GROUP BY log.path
-HAVING log.path like ‘/article/%’
-ORDER BY Count(log.id) DESC
-LIMIT 3
+CREATE VIEW vw2 as SELECT .....
 ```
