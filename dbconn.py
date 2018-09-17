@@ -5,7 +5,7 @@ import psycopg2
 DBNAME = "news"
 
 def get_log_data(strQuery):
-    db = pyscopg2.connect(database=DBNAME)
+    db = psycopg2.connect(database=DBNAME)
     c=db.cursor()
     c.execute(strQuery)
     strReturn = c.fetchall()
