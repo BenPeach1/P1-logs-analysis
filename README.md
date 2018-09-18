@@ -7,6 +7,9 @@ This analytical tool is designed to analyze log data from a news site, specifica
 ## Running the application
 This logs analysis application can be run from the command line by changing to the corresponding directory ("P1-logs-analysis") and running the ```python3 logs-analysis.py``` command.
 
+This application runs queries against the 'news' psql database. In order to run this application, you will
+need to download the newsdata.sql file and import it via the following command: ```psql -d news -f newsdata.sql```.
+
 
 ## _Questions_
 This analytical tool is designed to answer the following questions:
