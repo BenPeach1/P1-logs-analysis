@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 from dbconn import get_log_data
 
