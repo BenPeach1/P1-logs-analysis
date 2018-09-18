@@ -1,6 +1,8 @@
 
 from dbconn import get_log_data
 
+##Parse Date Strings into long Dates (e.g., 2017-12-01 to December 1, 2017)
+
 
 ##*****************************************************************************
 ##***Question #1 Below***
@@ -35,7 +37,7 @@ print("")
 ##*****************************************************************************
 
 ##****Query below is just a placeholder. Needs to be updated to correct query!
-strSQLIn = "Select articles.title, COUNT(log.id) as ArticleCount from log left outer join articles on replace(path, '/article/','') = articles.slug GROUP BY articles.title, log.path HAVING log.path like '/article/%' ORDER BY ArticleCount DESC limit 3;"
+strSQLIn = "SELECT authors.name, COUNT(log.id) as ArticleCount FROM log INNER JOIN  articles on replace(path, '/article/','') = articles.slug INNER JOIN authors on articles.author = authors.id GROUP BY authors.name ORDER BY ArticleCount DESC;"
 
 aryResults = get_log_data(strSQLIn)
 
@@ -65,7 +67,7 @@ print("")
 ##*****************************************************************************
 
 ##****Query below is just a placeholder. Needs to be updated to correct query!
-strSQLIn = "Select articles.title, COUNT(log.id) as ArticleCount from log left outer join articles on replace(path, '/article/','') = articles.slug GROUP BY articles.title, log.path HAVING log.path like '/article/%' ORDER BY ArticleCount DESC limit 3;"
+strSQLIn = "SELECT L1.time::timestamp::date as LogDate, ROUND((cast(ErrorCount as numeric)/TotalCount)*100,2) FROM (SELECT time::timestamp::date, Count(id) as TotalCount FROM log group by time::timestamp::date) L1 INNER JOIN (SELECT time::timestamp::date, count(id) as ErrorCount FROM log GROUP BY time::timestamp::date, log.status HAVING log.status = '404 NOT FOUND') L2 on (L1.time::timestamp::date = L2.time::timestamp::date) WHERE cast(ErrorCount as numeric)/TotalCount > .01;"
 
 aryResults = get_log_data(strSQLIn)
 
@@ -81,7 +83,8 @@ for i in range(len(aryResults)):
             strResult = "- " + str(aryResults[i][j])
         else:
             num += 1
-            strCurrent = str(aryResults[i][j])
+            strCurrent = str("{:,}".format(aryResults[i][j]))
+            #strCurrent = str(aryResults[i][j])
             strResult = strResult + " -- " + strCurrent + "% Errors"
 
     print(strResult)
