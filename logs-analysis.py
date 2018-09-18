@@ -3,6 +3,41 @@ from dbconn import get_log_data
 
 ##Parse Date Strings into long Dates (e.g., 2017-12-01 to December 1, 2017)
 
+##Parse Date Strings into long Dates (e.g., 2017-12-01 to December 1, 2017)
+
+def parse_date_string(strDateIn):
+    strYear = strDateIn[:4]
+    strDay = strDateIn[-2:]
+    # strMonth = strDateIn[5:-3]
+
+    if strDateIn[5:-3] == "01":
+         strMonth = "January"
+    elif strDateIn[5:-3] == "02":
+        strMonth = "February"
+    elif strDateIn[5:-3] == "03":
+        strMonth = "March"
+    elif strDateIn[5:-3] == "04":
+        strMonth = "April"
+    elif strDateIn[5:-3] == "05":
+        strMonth = "May"
+    elif strDateIn[5:-3] == "06":
+        strMonth = "June"
+    elif strDateIn[5:-3] == "07":
+        strMonth = "July"
+    elif strDateIn[5:-3] == "08":
+        strMonth = "August"
+    elif strDateIn[5:-3] == "09":
+        strMonth = "September"
+    elif strDateIn[5:-3] == "10":
+        strMonth = "October"
+    elif strDateIn[5:-3] == "11":
+        strMonth = "November"
+    else:
+        strMonth = "December"
+
+    strDateOut = strMonth + " " + strDay + ", " + strYear
+    return strDateOut
+
 
 ##*****************************************************************************
 ##***Question #1 Below***
@@ -20,7 +55,7 @@ for i in range(len(aryResults)):
     for j in range(len(aryResults[i])):
         if num == 0:
             num += 1
-            strResult = "- " + str(aryResults[i][j])
+            strResult = "- \"" + str(aryResults[i][j]) + "\""
         else:
             num += 1
 
@@ -80,11 +115,10 @@ for i in range(len(aryResults)):
     for j in range(len(aryResults[i])):
         if num == 0:
             num += 1
-            strResult = "- " + str(aryResults[i][j])
+            strResult = "- " + parse_date_string(str(aryResults[i][j]))
         else:
             num += 1
-            strCurrent = str("{:,}".format(aryResults[i][j]))
-            #strCurrent = str(aryResults[i][j])
+            strCurrent = str(aryResults[i][j])
             strResult = strResult + " -- " + strCurrent + "% Errors"
 
     print(strResult)
